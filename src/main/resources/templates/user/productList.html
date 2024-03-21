@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>IMS</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="#" />
+    <meta name="keywords"
+        content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app" />
+    <meta name="author" content="#" />
+    <!-- Favicon icon -->
+    <link rel="icon" href="..\images\favicon.ico" type="image/x-icon" />
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet" />
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="..\bower_components\bootstrap\css\bootstrap.min.css" />
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="..\icon\themify-icons\themify-icons.css" />
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="..\icon\icofont\css\icofont.css" />
+    <!-- feather Awesome -->
+    <link rel="stylesheet" type="text/css" href="..\icon\feather\css\feather.css" />
+    <!-- Data Table Css -->
+    <link rel="stylesheet" type="text/css"
+        href="..\bower_components\datatables.net-bs4\css\dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" type="text/css" href="..\pages\data-table\css\buttons.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="..\bower_components\datatables.net-responsive-bs4\css\responsive.bootstrap4.min.css" />
+    <link rel="stylesheet" type="text/css" href="..\pages\data-table\extensions\select\css\select.dataTables.min.css" />
+    <script src="..\pages\data-table\extensions\select\js\select-custom.js"></script>
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="..\css\style.css" />
+    <link rel="stylesheet" type="text/css" href="..\css\jquery.mCustomScrollbar.css" />
+</head>
+
+<body>
+    <div th:replace="~{user/inc/preloader :: pre-loader}"></div>
+    <div th:replace="~{user/inc/header :: main-page}">
+
+        <div class="page-wrapper" th:fragment="main-content">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="row align-items-end">
+                    <div class="col-lg-8">
+                        <div class="page-header-title">
+                            <div class="d-inline">
+                                <h4>Product List</h4>
+                                <span>You are currently in Product
+                                    Page</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="page-header-breadcrumb">
+                            <ul class="breadcrumb-title">
+                                <li class="breadcrumb-item">
+                                    <a th:href="@{/user/home}">
+                                        <i class="feather icon-home"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="#">Product List</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+
+            <!-- Page-body start  -->
+
+            <div class="page-body">
+                <!-- Checkbox Select table start -->
+                <div class="card">
+                    <div class="card-header">
+                        <!-- <h5>Checkbox Selection</h5> -->
+                        <a th:href="@{/user/addProduct}">
+                            <button type="button" class="btn btn-outline-info waves-effect waves-light">
+                                <i class="feather icon-file-plus"></i>
+                            </button>
+                        </a>
+
+                        <a href>
+                            <button type="button" class="btn btn-outline-success waves-effect waves-light add">
+                                <i class="ti-share"></i>
+                            </button>
+                        </a>
+
+                        <!-- <a th:href="@{/user/editProduct}">
+                        <button
+                                type="button"
+                                class="btn btn-outline-secondary waves-effect waves-dark add">
+                            <i class="feather icon-edit"></i>
+                        </button>
+                    </a> -->
+
+                        <a href>
+                            <button type="button" class="btn btn-outline-warning waves-effect waves-light add">
+                                <i class="feather icon-watch"></i>
+                            </button>
+                        </a>
+
+                        <a href>
+                            <button type="button" class="btn btn-outline-secondary waves-effect" onclick>
+                                <i class="ti-na"></i>
+                            </button>
+                        </a>
+
+                        <!--<div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="feather icon-maximize full-card"></i></li>
+                            <li><i class="feather icon-minus minimize-card"></i></li>
+                            &lt;!&ndash; <li><i class="feather icon-x-circle close-card"></i></li> &ndash;&gt;
+                        </ul>
+                    </div>-->
+
+                    </div>
+                    <div class="card-block">
+                        <div class="dt-responsive table-responsive">
+                            <table id="fix-header" class="table table-striped table-bordered nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Manufacturer</th>
+                                        <th>Name</th>
+                                        <th>NAV Code</th>
+                                        <th>Barcode</th>
+                                        <th>Expiry</th>
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                        <th>PIP-Code</th>
+                                        <th>VAT(%)</th>
+                                        <th>Last Sold</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr th:each="pList, index : ${getProducts}">
+                                        <td th:text="${index.index + 1}">No</td>
+                                        <td th:text="${pList.manufacturer}">manufacturer</td>
+                                        <td th:text="${pList.productName}">productName</td>
+                                        <td th:text="${pList.navCode}">navCode</td>
+                                        <td th:text="${pList.barcode}">barcode</td>
+                                        <td th:text="${pList.batchExpiry}">batchExpiry</td>
+                                        <td th:text="${pList.quantity}">quantity</td>
+                                        <td th:text="${pList.price}">price</td>
+                                        <td th:text="${pList.pipCode}">pipCode</td>
+                                        <td th:text="${pList.vat}">vat</td>
+                                        <td th:text="${pList.lastSoldDate}"></td>
+                                        <td>
+                                            <a th:href="@{/user/editProduct}">
+                                                <button class="btn btn-outline-secondary btn-sm">
+                                                    <i class="feather icon-edit"></i>
+                                                </button>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Manufacturer</th>
+                                        <th>Name</th>
+                                        <th>NAV Code</th>
+                                        <th>Barcode</th>
+                                        <th>Expiry</th>
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                        <th>PIP-Code</th>
+                                        <th>VAT(%)</th>
+                                        <th>Last Sold</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Checkbox Select table end -->
+            </div>
+            <!-- Page-body end -->
+        </div>
+    </div>
+
+    <!-- Editable-table js -->
+    <script type="text/javascript" src="..\pages\edit-table\jquery.tabledit.js"></script>
+    <script type="text/javascript" src="..\pages\edit-table\editable.js"></script>
+    <!-- data-table js -->
+    <script src="..\bower_components\datatables.net\js\jquery.dataTables.min.js"></script>
+    <script src="..\bower_components\datatables.net-buttons\js\dataTables.buttons.min.js"></script>
+    <script src="..\pages\data-table\js\jszip.min.js"></script>
+    <script src="..\pages\data-table\js\pdfmake.min.js"></script>
+    <script src="..\pages\data-table\js\vfs_fonts.js"></script>
+    <script src="..\pages\data-table\extensions\select\js\dataTables.select.min.js"></script>
+    <script src="..\bower_components\datatables.net-buttons\js\buttons.print.min.js"></script>
+    <script src="..\bower_components\datatables.net-buttons\js\buttons.html5.min.js"></script>
+    <script src="..\bower_components\datatables.net-bs4\js\dataTables.bootstrap4.min.js"></script>
+    <script src="..\bower_components\datatables.net-responsive\js\dataTables.responsive.min.js"></script>
+
+    <script src="..\pages\data-table\extensions\fixed-header\js\dataTables.fixedHeader.min.js"></script>
+    <script src="..\pages\data-table\extensions\fixed-header\js\fixed-header-custom.js"></script>
+
+    <script src="..\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>
+
+    <script>
+
+        function updateProduct() {
+            // Redirect to editForm.html with the product ID as a query parameter
+            window.location.href = "/user/editProductForm?id=" + productId;
+        }
+
+    </script>
+
+</body>
+
+</html>
