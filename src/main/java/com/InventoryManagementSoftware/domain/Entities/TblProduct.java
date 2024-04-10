@@ -1,6 +1,7 @@
 package com.InventoryManagementSoftware.domain.Entities;
 
 import com.InventoryManagementSoftware.application.payload.request.ProductRequest;
+import com.InventoryManagementSoftware.application.payload.request.PurchaseRequest;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
@@ -9,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 import java.util.List;
-
 
 @Document(collection = "tblProduct")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -76,22 +76,22 @@ public class TblProduct {
 
     private List<TblProduct> productList;
 
-
-    public TblProduct(){
+    public TblProduct() {
 
     }
 
-    /*public TblProduct(ProductRequest productRequest){
-        this.productId = productRequest.getProductId();
-        this.productName = productRequest.getProductName();
-        this.navCode = productRequest.getNavCode();
-        this.dcCode = productRequest.getDcCode();
-        this.price = productRequest.getPrice();
+    /*
+     * public TblProduct(ProductRequest productRequest){
+     * this.productId = productRequest.getProductId();
+     * this.productName = productRequest.getProductName();
+     * this.navCode = productRequest.getNavCode();
+     * this.dcCode = productRequest.getDcCode();
+     * this.price = productRequest.getPrice();
+     * 
+     * }
+     */
 
-    }*/
-
-
-    public TblProduct(ProductRequest productRequest){
+    public TblProduct(ProductRequest productRequest) {
         this.productId = productRequest.getProductId();
         this.manufacturer = productRequest.getManufacturer();
         this.productName = productRequest.getProductName();
@@ -105,7 +105,6 @@ public class TblProduct {
         this.price = productRequest.getPrice();
 
     }
-
 
     public List<TblProduct> getProductList() {
         return productList;

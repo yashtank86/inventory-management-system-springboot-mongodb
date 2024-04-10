@@ -90,10 +90,9 @@
                             </div>
                             <div class="card-block">
                                 <div class="j-wrapper j-wrapper-640">
-                                    <form 
-                                        th:object="${productget}"
-                                        th:action="@{/user/editProduct/{productId}(productId=${productget.productId})}"
-                                        method="post" class="j-pro" id="j-pro">
+                                    <form th:action="@{/user/editProduct/save}" 
+                                            th:object="${editProducts}" 
+                                            method="post" class="j-pro" id="j-pro">
 
                                         <div class="j-content">
                                             <div class="j-unit">
@@ -103,7 +102,8 @@
                                                         <i class="icofont icofont-briefcase-alt-1"></i>
                                                     </label>
                                                     <input type="text" id="manufacturer" name="manufacturer"
-                                                        th:value="*{manufacturer}" th:field="*{manufacturer}">                                                    
+                                                        th:field="*{manufacturer}">
+
                                                     <p th:errors="*{manufacturer}" class="text-danger"
                                                         th:if="${#fields.hasErrors('manufacturer')}"></p>
                                                 </div>
@@ -121,7 +121,7 @@
                                                             <i class="icofont icofont-paper"></i>
                                                         </label>
                                                         <input type="text" id="productName" name="productName"
-                                                            th:value="*{productName}" th:field="*{productName}">
+                                                            th:field="*{productName}">
                                                         <p th:errors="*{productName}" class="text-danger"
                                                             th:if="${#fields.hasErrors('productName')}"></p>
                                                     </div>
@@ -134,7 +134,7 @@
                                                             <i class="icofont icofont-box"></i>
                                                         </label>
                                                         <input type="text" id="quantity" name="quantity"
-                                                            th:value="*{quantity}" th:field="*{quantity}">
+                                                            th:field="*{quantity}">
                                                         <p th:errors="*{quantity}" class="text-danger"
                                                             th:if="${#fields.hasErrors('quantity')}"></p>
                                                     </div>
@@ -150,7 +150,7 @@
                                                             <i class="icofont icofont-bar-code"></i>
                                                         </label>
                                                         <input type="text" id="barcode" name="barcode"
-                                                            th:value="*{barcode}" th:field="*{barcode}">
+                                                            th:field="*{barcode}">
                                                         <p th:errors="*{barcode}" class="text-danger"
                                                             th:if="${#fields.hasErrors('barcode')}"></p>
                                                     </div>
@@ -163,7 +163,7 @@
                                                             <i class="icofont icofont-bar-code"></i>
                                                         </label>
                                                         <input type="text" id="pipCode" name="pipCode"
-                                                            th:value="*{pipCode}" th:field="*{pipCode}">
+                                                            th:field="*{pipCode}">
                                                         <p th:errors="*{pipCode}" class="text-danger"
                                                             th:if="${#fields.hasErrors('pipCode')}"></p>
                                                     </div>
@@ -177,8 +177,7 @@
                                                         <label class="j-icon-right" for="vat">
                                                             <i class="icofont icofont-bar-code"></i>
                                                         </label>
-                                                        <input type="text" id="vat" name="vat" 
-                                                        th:value="*{vat}" th:field="*{vat}">
+                                                        <input type="text" id="vat" name="vat" th:field="*{vat}">
                                                         <p th:errors="*{vat}" class="text-danger"
                                                             th:if="${#fields.hasErrors('vat')}"></p>
                                                         <span class="j-tooltip j-tooltip-right-top">Add
@@ -195,7 +194,7 @@
                                                             <i class="icofont icofont-bar-code"></i>
                                                         </label>
                                                         <input type="text" id="navCode" name="navCode"
-                                                            th:value="*{navCode}" th:field="*{navCode}">
+                                                            th:field="*{navCode}">
                                                         <p th:errors="*{navCode}" class="text-danger"
                                                             th:if="${#fields.hasErrors('navCode')}"></p>
                                                     </div>
@@ -211,8 +210,7 @@
                                                         <label class="j-icon-right" for="price">
                                                             <i class="icofont icofont-cur-pound"></i>
                                                         </label>
-                                                        <input type="text" id="price" name="price" 
-                                                        th:value="*{price}" th:field="*{price}">
+                                                        <input type="text" id="price" name="price" th:field="*{price}">
                                                         <p th:errors="*{price}" class="text-danger"
                                                             th:if="${#fields.hasErrors('price')}"></p>
                                                     </div>
@@ -223,9 +221,7 @@
                                                         <label class="j-icon-right" for="batchExpiry">
                                                             <i class="icofont icofont-ui-calendar"></i>
                                                         </label>
-                                                        <input type="text" id="batchExpiry" 
-                                                            th:value="*{batchExpiry}" 
-                                                            th:field="*{batchExpiry}"                                                   
+                                                        <input type="text" id="batchExpiry" th:field="*{batchExpiry}"
                                                             name="batchExpiry" placeholder="MM/YY">
                                                         <p th:errors="*{batchExpiry}" class="text-danger"
                                                             th:if="${#fields.hasErrors('batchExpiry')}"></p>
@@ -241,7 +237,6 @@
                                                 <textarea spellcheck="false" name="message"></textarea>
                                             </div>
                                         </div>-->
-                                        <input type="hidden"  th:field="*{productId}" name="productId" readonly>
                                             <!-- end message -->
                                             <!-- start response from server -->
                                             <div class="j-response"></div>

@@ -1,6 +1,6 @@
 package com.InventoryManagementSoftware.domain.repository;
 
-import com.InventoryManagementSoftware.application.payload.request.ProductRequest;
+import com.InventoryManagementSoftware.application.payload.request.PurchaseRequest;
 import com.InventoryManagementSoftware.domain.Entities.TblProduct;
 import jdk.jfr.Enabled;
 import org.springframework.data.mongodb.repository.MongoRepository;

@@ -43,8 +43,8 @@
 </head>
 
 <body>
-    <div th:replace="~{user/inc/preloader :: pre-loader}"></div>
-    <div th:replace="~{user/inc/header :: main-page}">
+    <div th:replace="~{admin/inc/preloader :: pre-loader}"></div>
+    <div th:replace="~{admin/inc/header :: main-page}">
 
         <div class="page-wrapper" th:fragment="main-content">
             <!-- Page-header start -->
@@ -63,7 +63,7 @@
                         <div class="page-header-breadcrumb">
                             <ul class="breadcrumb-title">
                                 <li class="breadcrumb-item">
-                                    <a th:href="@{/user/home}">
+                                    <a th:href="@{/admin/home}">
                                         <i class="feather icon-home"></i>
                                     </a>
                                 </li>
@@ -82,7 +82,7 @@
                 <div class="card">
                     <div class="card-header">
                         <!-- <h5>Checkbox Selection</h5> -->
-                        <a th:href="@{/user/addProduct}">
+                        <a th:href="@{/admin/addProduct}">
                             <button type="button" class="btn btn-outline-info waves-effect waves-light">
                                 <i class="feather icon-file-plus"></i>
                             </button>
@@ -146,13 +146,13 @@
                                         <td th:text="${pList.vat}">vat</td>
                                         <td th:text="${pList.lastSoldDate}"></td>
                                         <td>
-                                            <a th:href="@{/user/editProduct/{productId}(productId=${pList.productId}) }">
+                                            <a th:href="@{/user/editProduct}">
                                                 <button class="btn btn-outline-secondary btn-sm">
                                                     <i class="feather icon-edit"></i>
                                                 </button>
                                             </a>
                                        
-                                            <a href="#">
+                                            <a th:href="@{/user/editProduct}">
                                                 <button class="btn btn-outline-secondary btn-sm">
                                                     <i class="ti-na"></i>
                                                 </button>
@@ -207,43 +207,12 @@
 
     <script src="..\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>
 
-     <script>
-        $(document).ready(function() {
-            $('#productTable').DataTable();
-        });
+    <script>
 
-        function editProduct(button) {
-            var row = button.closest('tr');
-            var productId = row.find('td:eq(0)').text();
-            var Manufacturer = row.find('td:eq(1)').text();
-            var productName = row.find('td:eq(2)').text();
-            var navCode = row.find('td:eq(3)').text();
-            var barcode = row.find('td:eq(4)').text();
-            var batchExpiry = row.find('td:eq(5)').text();
-            var quantity = row.find('td:eq(6)').text();
-            var price = row.find('td:eq(7)').text();
-            var pipCode = row.find('td:eq(8)').text();
-            var vat  = row.find('td:eq(9)').text();
-
-        
-            // Redirect to editForm.html with parameters
-            //window.location.href = '/editForm?productId=' + productId + '&productName=' + productName + '&productPrice=' + productPrice;
+        function updateProduct() {
+            // Redirect to editForm.html with the product ID as a query parameter
+            window.location.href = "/user/editProductForm?id=" + productId;
         }
-
-    // $('#fix-header tbody').on( 'click', '#editProduct', function () {
-    //     var data = table.row( $(this).parents('tr') ).data();
-    //     $("#type").val(data['productType']);
-    // 	$("#productName").val(data['productName']);
-    // 	$("#navCode").val(data['navCode']);
-    // 	$("#barcode").val(data['barcode']);
-    // 	$("#batchExpiry").val(data['batchExpiry']);
-    // 	$("#quantity").val(data['quantity']);
-    // 	$("#price").val(data['price']);
-    // 	$("#pip").val(data['pipCode']);
-    // 	$("#productId").val(data['productId']);
-    // 	$("#vat").val(data['vat']);
-    	
-    // } 
 
     </script>
 

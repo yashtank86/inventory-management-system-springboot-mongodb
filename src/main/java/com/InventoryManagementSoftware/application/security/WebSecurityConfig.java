@@ -21,16 +21,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
-
 @Configuration
-//@EnableWebSecurity
+// @EnableWebSecurity
 @EnableMethodSecurity
-//(securedEnabled = true,
-//jsr250Enabled = true,
-//prePostEnabled = true) // by default
+// (securedEnabled = true,
+// jsr250Enabled = true,
+// prePostEnabled = true) // by default
 public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
@@ -47,10 +43,9 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
             "/register/**",
             "/login/**",
 
-            "/user/**",
-            "/admin/**",
+            // "/user/**",
+            // "/admin/**",
 
-            "/user/inc/**",
             "/bower_components/**",
             "/css/**",
             "/extra-pages/**",
@@ -70,56 +65,57 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
 
-//  @Override
-//  public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-//    authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//  }
+    // @Override
+    // public void configure(AuthenticationManagerBuilder
+    // authenticationManagerBuilder) throws Exception {
+    // authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    // }
 
+    // @Bean
+    // @Override
+    // public AuthenticationManager authenticationManagerBean() throws Exception {
+    // return super.authenticationManagerBean();
+    // }
 
-//  @Bean
-//  @Override
-//  public AuthenticationManager authenticationManagerBean() throws Exception {
-//    return super.authenticationManagerBean();
-//  }
-
-
-//  @Override
-//  protected void configure(HttpSecurity http) throws Exception {
-//    http.cors().and().csrf().disable()
-//      .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-//      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//      .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-//      .antMatchers("/api/test/**").permitAll()
-//      .anyRequest().authenticated();
-//
-//    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-//  }
+    // @Override
+    // protected void configure(HttpSecurity http) throws Exception {
+    // http.cors().and().csrf().disable()
+    // .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+    // .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+    // .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+    // .antMatchers("/api/test/**").permitAll()
+    // .anyRequest().authenticated();
+    //
+    // http.addFilterBefore(authenticationJwtTokenFilter(),
+    // UsernamePasswordAuthenticationFilter.class);
+    // }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
-                /*.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))*/
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 
-                ).authorizeHttpRequests(auth ->
-                        auth.requestMatchers(ENDPOINTS).permitAll()
-                               // .requestMatchers("/api/products/**").permitAll()
-                                // .requestMatchers("/user/**").hasAuthority("ROLE_USER")
-                                // .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                                .anyRequest().authenticated()
-                ).formLogin(form -> form
+                // .exceptionHandling(exception ->
+                // exception.authenticationEntryPoint(unauthorizedHandler))
+
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+
+                ).authorizeHttpRequests(auth -> auth.requestMatchers(ENDPOINTS).permitAll()
+                        // .requestMatchers("/api/products/**").permitAll()
+                        .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated())
+                .formLogin(form -> form
                         .loginPage(LOGIN_URL)
-                        .loginProcessingUrl(LOGIN_URL)
-                        .failureUrl(LOGIN_FAIL_URL)
-                        .defaultSuccessUrl(DEFAULT_SUCCESS_URL)
-                ).logout(
+                        // .loginProcessingUrl(LOGIN_URL)
+                        // .failureUrl(LOGIN_FAIL_URL)
+                        .defaultSuccessUrl(DEFAULT_SUCCESS_URL))
+                .logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_URL))
                                 .permitAll()
 
                 );
-
 
         http.authenticationProvider(authenticationProvider());
 
@@ -128,7 +124,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         return http.build();
     }
 
-    //******************
+    // ******************
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {

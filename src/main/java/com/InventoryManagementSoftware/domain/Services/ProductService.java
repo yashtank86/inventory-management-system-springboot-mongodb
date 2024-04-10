@@ -2,7 +2,10 @@ package com.InventoryManagementSoftware.domain.Services;
 
 import com.InventoryManagementSoftware.application.Exception.EntityNotFoundException;
 import com.InventoryManagementSoftware.application.payload.request.ProductRequest;
+import com.InventoryManagementSoftware.application.payload.request.PurchaseRequest;
 import com.InventoryManagementSoftware.domain.Entities.TblProduct;
+import com.InventoryManagementSoftware.domain.repository.ProductRepository;
+
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 

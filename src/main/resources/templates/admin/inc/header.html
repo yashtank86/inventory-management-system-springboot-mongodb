@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="main-page">
+<head>
+    <title>IMS</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="#"/>
+    <meta name="keywords"
+          content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app"/>
+    <meta name="author" content="#"/>
+    <!-- Favicon icon -->
+    <link rel="icon" href="..\images\favicon.ico" type="image/x-icon"/>
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet"/>
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="..\bower_components\bootstrap\css\bootstrap.min.css"/>
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="..\icon\themify-icons\themify-icons.css"/>
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="..\icon\icofont\css\icofont.css"/>
+    <!-- feather Awesome -->
+    <link rel="stylesheet" type="text/css" href="..\icon\feather\css\feather.css"/>
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="..\css\style.css"/>
+
+
+    <link rel="stylesheet" type="text/css" href="..\css\jquery.mCustomScrollbar.css"/>
+</head>
+
+<body>
+<div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+        <nav class="navbar header-navbar pcoded-header">
+            <div class="navbar-wrapper">
+                <div class="navbar-logo">
+                    <a class="mobile-menu" id="mobile-collapse" href="#!">
+                        <i class="feather icon-menu"></i>
+                    </a>
+                    <a href="#">
+                        <h3 class="font-weight-bold">IMS</h3>
+                    </a>
+                    <a class="mobile-options">
+                        <i class="feather icon-more-horizontal"></i>
+                    </a>
+                </div>
+
+                <div class="navbar-container container-fluid">
+                    <ul class="nav-left"></ul>
+                    <ul class="nav-right">
+                        <li>
+                            <a href="#!" onclick="javascript:toggleFullScreen()">
+                                <i class="feather icon-maximize full-screen"></i>
+                            </a>
+                        </li>
+
+                        <li class="user-profile header-notification">
+                            <div class="dropdown-primary dropdown">
+                                <div class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="..\images\profile-pic.jpg"
+                                            class="img-radius"
+                                            alt="User-Profile-Image"/>
+                                    <span>admin</span>
+                                    <i class="feather icon-chevron-down"></i>
+                                </div>
+                                <ul
+                                        class="show-notification profile-notification dropdown-menu"
+                                        data-dropdown-in="fadeIn"
+                                        data-dropdown-out="fadeOut">
+                                    <li>
+                                        <a href="#">
+                                            <i class="feather icon-user"></i> Profile
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a th:href="@{/logout}">
+                                            <i class="feather icon-log-out"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                <nav class="pcoded-navbar">
+                    <div class="pcoded-inner-navbar main-menu">
+                        <div class="pcoded-navigatio-lavel">Dashboard</div>
+                        <ul class="pcoded-item pcoded-left-item">
+                            <li class=" ">
+                                <a th:href="@{/admin/productList}" href="javascript:void(0)">
+                                    <span class="pcoded-micon"><i class="feather icon-list"></i></span>
+                                    <span class="pcoded-mtext">Product</span>
+                                </a>
+                            </li>
+                            <li class="pcoded-hasmenu">
+                                <a href="javascript:void(0)">
+                                    <span class="pcoded-micon"><i class="feather icon-box"></i></span>
+                                    <span class="pcoded-mtext">Inventory</span>
+                                    <!-- <span class="pcoded-badge label label-danger">100+</span> -->
+                                </a>
+                                <ul class="pcoded-submenu">
+                                    <li class="">
+                                        <a th:href="@{/admin/purchaseList}">
+                                            <span class="pcoded-mtext">Purchase</span>
+                                        </a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">Sales</span>
+                                        </a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">Adjustment</span>
+                                        </a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">Stock Take List</span>
+                                        </a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">Location</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="pcoded-hasmenu">
+                                <a href="javascript:void(0)">
+                                    <span class="pcoded-micon"><i class="feather icon-settings"></i></span>
+                                    <span class="pcoded-mtext">Setting</span>
+                                    <!-- <span class="pcoded-badge label label-danger">100+</span> -->
+                                </a>
+                                <ul class="pcoded-submenu">
+                                    <li class="">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">User Management</span>
+                                        </a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">Menu List</span>
+                                        </a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">Menu Permission</span>
+                                        </a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">Department List</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                            <li class="pcoded-hasmenu">
+                                <a href="javascript:void(0)">
+                                    <span class="pcoded-micon"><i class="feather icon-upload-cloud"></i></span>
+                                    <span class="pcoded-mtext">Import</span>
+                                    <!-- <span class="pcoded-badge label label-danger">100+</span> -->
+                                </a>
+                                <ul class="pcoded-submenu">
+                                    <li class="">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">Amazon Sheet</span>
+                                        </a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">Ebay Sheet</span>
+                                        </a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">Product</span>
+                                        </a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">StockTake</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="pcoded-hasmenu">
+                                <a href="javascript:void(0)">
+                                    <span class="pcoded-micon"><i class="feather icon-briefcase"></i></span>
+                                    <span class="pcoded-mtext">Supplier</span>
+                                    <!-- <span class="pcoded-badge label label-danger">100+</span> -->
+                                </a>
+                                <ul class="pcoded-submenu">
+                                    <li class="">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">Supplier List</span>
+                                        </a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="#">
+                                            <span class="pcoded-mtext">Supplier Product List</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="">
+                                <a href="#">
+                                    <span class="pcoded-micon"><i class="feather icon-briefcase"></i></span>
+                                    <span class="pcoded-mtext">Stock Take</span>
+                                    <!-- <span class="pcoded-badge label label-danger">100+</span> -->
+                                </a>
+                                
+                            </li>
+
+                            <li class="pcoded-hasmenu">
+                                <a href="javascript:void(0)">
+                                    <span class="pcoded-micon"><i class="feather icon-file-text"></i></span>
+                                    <span class="pcoded-mtext">Report</span>
+                                    <!-- <span class="pcoded-badge label label-danger">100+</span> -->
+                                </a>
+                                <ul class="pcoded-submenu">
+                                    <li class="">
+                                        <a href="widget-statistic.htm">
+                                            <span class="pcoded-mtext">Zero Qty</span>
+                                        </a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="widget-data.htm">
+                                            <span class="pcoded-mtext">Highest Selling</span>
+                                        </a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="widget-data.htm">
+                                            <span class="pcoded-mtext">Slow Selling Lines</span>
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <!-- Main-body start -->
+                        <div class="main-body">
+                            <div th:replace="~{::main-content}"></div>
+                        </div>
+                        <!-- Main-body end -->
+                    </div>
+                </div>
+                <!--  -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Required Jquery -->
+<script type="text/javascript" src="..\bower_components\jquery\js\jquery.min.js"></script>
+<script type="text/javascript" src="..\bower_components\jquery-ui\js\jquery-ui.min.js"></script>
+<script type="text/javascript" src="..\bower_components\popper.js\js\popper.min.js"></script>
+<script type="text/javascript" src="..\bower_components\bootstrap\js\bootstrap.min.js"></script>
+<!-- jquery slimscroll js -->
+<script type="text/javascript" src="..\bower_components\jquery-slimscroll\js\jquery.slimscroll.js"></script>
+<!-- modernizr js -->
+<script type="text/javascript" src="..\bower_components\modernizr\js\modernizr.js"></script>
+<script type="text/javascript" src="..\bower_components\modernizr\js\css-scrollbars.js"></script>
+
+<!-- i18next.min.js -->
+<script type="text/javascript" src="..\bower_components\i18next\js\i18next.min.js"></script>
+<script type="text/javascript" src="..\bower_components\i18next-xhr-backend\js\i18nextXHRBackend.min.js"></script>
+<script type="text/javascript" src="..\bower_components\i18next-browser-languagedetector\js\i18nextBrowserLanguageDetector.min.js"></script>
+<script type="text/javascript" src="..\bower_components\jquery-i18next\js\jquery-i18next.min.js"></script>
+<!-- Custom js -->
+<script src="..\js\pcoded.min.js"></script>
+<script src="..\js\vartical-layout.min.js"></script>
+<script src="..\js\jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="..\js\script.js"></script>
+<script src="..\pages\data-table\extensions\select\js\select-custom.js"></script>
+
+
+
+</body>
+</html>

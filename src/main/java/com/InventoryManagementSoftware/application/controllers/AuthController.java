@@ -29,6 +29,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -57,25 +58,15 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-
-    @GetMapping("/login")
-    public String login(Model model) {
-        LoginRequest loginRequest = new LoginRequest();
-        model.addAttribute("loginUser", loginRequest);
-        return "login";
-    }
-
     @GetMapping("/user/home")
     public String userHome() {
         return "user/home";
     }
 
-
     @GetMapping("/admin/home")
     public String adminHome() {
         return "admin/home";
     }
-
 
     @GetMapping("/register")
     public String register(Model model) {
@@ -84,73 +75,88 @@ public class AuthController {
         return "register";
     }
 
-    @PostMapping("/login/save")
+    @GetMapping("/login")
+    public String login(Model model) {
+        LoginRequest loginRequest = new LoginRequest();
+        model.addAttribute("loginUser", loginRequest);
+        return "login";
+    }
+
+    @PostMapping("/login")
     public String authenticateUser(@Valid @ModelAttribute("loginUser") LoginRequest loginRequest,
-                                   HttpServletRequest request, HttpServletResponse response, Model model) throws IOException, ServletException {
+            HttpSession httpSession,
+            HttpServletRequest request, HttpServletResponse response, Model model)
+            throws IOException, ServletException {
         Authentication authentication;
         try {
             authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            List<String> roles = userDetails.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .collect(Collectors.toList());
+
+            String token = jwtUtils.generateTokenFromUsername(loginRequest.getUsername());
+            // Set JWT token as a cookie
+            Cookie jwtCookie = new Cookie("jwtToken", token);
+            jwtCookie.setPath("/IMS");
+            response.addCookie(jwtCookie);
+
+            defaultPage(request);
+            // determineRedirectUrl(userDetails);
+
         } catch (AuthenticationException e) {
             // Handle authentication failure, e.g., invalid credentials
             model.addAttribute("error", "Invalid username or password");
             return "redirect:/login"; // Return login page with error message
         }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        /*List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());*/
-
-        //String url = determineRedirectUrl(authentication, userDetails.getUsername());
-
-        String token = jwtUtils.generateTokenFromUsername(loginRequest.getUsername());
-        // Set JWT token as a cookie
-        Cookie jwtCookie = new Cookie("jwtToken", token);
-        jwtCookie.setPath("/IMS");
-        response.addCookie(jwtCookie);
-
-        return determineRedirectUrl(userDetails);
+        return "";
 
     }
 
-    private String determineRedirectUrl(UserDetailsImpl userDetails) {
+    // private String determineRedirectUrl(UserDetailsImpl userDetails) {
 
-        Set<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toSet());
+    // Set<String> roles = userDetails.getAuthorities().stream()
+    // .map(GrantedAuthority::getAuthority)
+    // .collect(Collectors.toSet());
 
-       /* List<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList()); */
+    // if (roles.contains("ROLE_USER")) {
+    // return "redirect:/user/home";
+    // } else if (roles.contains("ROLE_ADMIN")) {
+    // return "redirect:/admin/home";
+    // }
+    // return "redirect:/";
+    // }
 
-        if (roles.contains("ROLE_USER")) {
-            return "redirect:/user/home";
-        } else if (roles.contains("ROLE_ADMIN")) {
-            return "redirect:/admin/home";
-        }
-        return "redirect:/";
-    }
+    public String defaultPage(HttpServletRequest request) {
 
-    /*public String defaultPage() {
-        // Redirect to the appropriate home page based on the user's role
-        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String token = jwtUtils.getJwtFromCookies(request);
+        if (token != null && jwtUtils.validateJwtToken(token)) {
 
-        for (GrantedAuthority authority : userDetails.getAuthorities()) {
-            if (authority.getAuthority().equals("ROLE_USER")) {
-                return "redirect:/user/productList";
-            } else if (authority.getAuthority().equals("ROLE_ADMIN")) {
-                return "redirect:/admin/home";
+            UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication()
+                    .getPrincipal();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            SecurityContextHolder.getContext().setAuthentication(auth);
+
+            for (GrantedAuthority authority : userDetails.getAuthorities()) {
+                if (authority.getAuthority().equals("ROLE_USER")) {
+                    return "/user/home";
+                } else if (authority.getAuthority().equals("ROLE_ADMIN")) {
+                    return "/admin/home";
+                }
             }
         }
+        
+       
         return "redirect:/";
-    }*/
-
+    }
 
     @PostMapping("/register/save")
-    public String registerUser(@Valid @ModelAttribute("registerUser") SignupRequest signUpRequest, Model model, BindingResult result) {
+    public String registerUser(@Valid @ModelAttribute("registerUser") SignupRequest signUpRequest, Model model,
+            BindingResult result) {
 
         String msg = "";
 
@@ -208,14 +214,13 @@ public class AuthController {
         return "redirect:/login";
     }
 
-    @PostMapping("/logout")
-    public void logout() {
+    @GetMapping("/logout")
+    public String logout() {
 
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-
+        // String username =
+        // SecurityContextHolder.getContext().getAuthentication().getName();
+        SecurityContextHolder.clearContext();
+        return "redirect:/login";
     }
 
-
 }
-

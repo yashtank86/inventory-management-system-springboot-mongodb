@@ -43,8 +43,8 @@
 
 <body>
 
-<div th:replace="~{user/inc/preloader :: pre-loader}"></div>
-<div th:replace="~{user/inc/header :: main-page}">
+<div th:replace="~{admin/inc/preloader :: pre-loader}"></div>
+<div th:replace="~{admin/inc/header :: main-page}">
 
     <div class="page-wrapper" th:fragment="main-content">
         <!-- Page-header start -->
@@ -53,8 +53,8 @@
                 <div class="col-lg-8">
                     <div class="page-header-title">
                         <div class="d-inline">
-                            <h4>Add Product</h4>
-                            <span>You  are currently in / Home / Product List Page.</span>
+                            <h4>puchases</h4>
+                            <span>You  are currently in / Inventory / Purchase List Page.</span>
                         </div>
                     </div>
                 </div>
@@ -62,10 +62,10 @@
                     <div class="page-header-breadcrumb">
                         <ul class="breadcrumb-title">
                             <li class="breadcrumb-item">
-                                <a th:href="@{/user/home}"> <i class="feather icon-home"></i>
+                                <a th:href="@{/admin/home}"> <i class="feather icon-home"></i>
                                 </a>
                             </li>
-                            <li class="breadcrumb-item"><a th:href="@{/user/productList}">Product List</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{/admin/productList}">Product List</a></li>
                             <li class="breadcrumb-item"><a href="#">Add Product</a></li>
                         </ul>
                     </div>
@@ -81,37 +81,36 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Add Product here</h5>
-                            <span>You are adding Pharma Products</span>
+                            <!-- <h5>Add Purchases here</h5> -->
 
                         </div>
                         <div class="card-block">
                             <div class="j-wrapper j-wrapper-640">
-                                <form th:action="@{/user/addProduct}"
-                                      th:object="${addProducts}"
+                                <form th:action="@{/admin/addpurchase/save}"
+                                      th:object="${objPurchases}"
                                       method="post"
                                       class="j-pro"
                                       id="j-pro">
                                       
                                     <div class="j-content">
                                         <div class="j-unit">
-                                            <label class="j-label">Manufacturer</label>
+                                            <label class="j-label">Document Type</label>
                                             <div class="j-input">
-                                                <label class="j-icon-right" for="manufacturer">
+                                                <label class="j-icon-right" for="documentType">
                                                     <i class="icofont icofont-briefcase-alt-1"></i>
                                                 </label>
                                                 <input type="text"
-                                                       id="manufacturer"
-                                                       name="manufacturer"
-                                                       th:field="*{manufacturer}">
-                                                <p th:errors="*{manufacturer}" class="text-danger"
-                                                   th:if="${#fields.hasErrors('manufacturer')}"></p>
+                                                       id="documentType"
+                                                       name="documentType"
+                                                       th:field="*{documentType}">
+                                                <p th:errors="*{documentType}" class="text-danger"
+                                                   th:if="${#fields.hasErrors('documentType')}"></p>
                                             </div>
                                         </div>
 
                                         <div class="j-row">
                                             <div class="j-span6 j-unit">
-                                                <label class="j-label">Product Name</label>
+                                                <label class="j-label">Name</label>
                                                 <div class="j-input">
                                                     <label class="j-icon-right" for="productName">
                                                         <i class="icofont icofont-paper"></i>
@@ -126,71 +125,71 @@
                                             </div>
 
                                             <div class="j-span6 j-unit">
-                                                <label class="j-label">Quantity</label>
-                                                <div class="j-input">
-                                                    <label class="j-icon-right" for="quantity">
-                                                        <i class="icofont icofont-box"></i>
-                                                    </label>
-                                                    <input type="text" id="quantity" name="quantity"
-                                                           th:field="*{quantity}">
-                                                    <p th:errors="*{quantity}" class="text-danger"
-                                                       th:if="${#fields.hasErrors('quantity')}"></p>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="j-row">
-                                            <div class="j-span6 j-unit">
-                                                <label class="j-label">Barcode</label>
-                                                <div class="j-input">
-                                                    <label class="j-icon-right" for="barcode">
-                                                        <i class="icofont icofont-bar-code"></i>
-                                                    </label>
-                                                    <input type="text" id="barcode" name="barcode"
-                                                           th:field="*{barcode}">
-                                                    <p th:errors="*{barcode}" class="text-danger"
-                                                       th:if="${#fields.hasErrors('barcode')}"></p>
-                                                </div>
-                                            </div>
-                                            <div class="j-span6 j-unit">
-                                                <label class="j-label">PIP Code</label>
-                                                <div class="j-input">
-                                                    <label class="j-icon-right" for="pipCode">
-                                                        <i class="icofont icofont-bar-code"></i>
-                                                    </label>
-                                                    <input type="text" id="pipCode" name="pipCode"
-                                                           th:field="*{pipCode}">
-                                                    <p th:errors="*{pipCode}" class="text-danger"
-                                                       th:if="${#fields.hasErrors('pipCode')}"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="j-row">
-                                            <div class="j-span6 j-unit">
-                                                <label class="j-label">VAT(%)</label>
-                                                <div class="j-input">
-                                                    <label class="j-icon-right" for="vat">
-                                                        <i class="icofont icofont-bar-code"></i>
-                                                    </label>
-                                                    <input type="text" id="vat" name="vat" th:field="*{vat}">
-                                                    <p th:errors="*{vat}" class="text-danger"
-                                                       th:if="${#fields.hasErrors('vat')}"></p>
-                                                    <span class="j-tooltip j-tooltip-right-top">Add Value Added Tax Here</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="j-span6 j-unit">
-                                                <label class="j-label">NAV Code</label>
+                                                <label class="j-label">navCode</label>
                                                 <div class="j-input">
                                                     <label class="j-icon-right" for="navCode">
-                                                        <i class="icofont icofont-bar-code"></i>
+                                                        <i class="icofont icofont-box"></i>
                                                     </label>
                                                     <input type="text" id="navCode" name="navCode"
                                                            th:field="*{navCode}">
                                                     <p th:errors="*{navCode}" class="text-danger"
                                                        th:if="${#fields.hasErrors('navCode')}"></p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="j-row">
+                                            <div class="j-span6 j-unit">
+                                                <label class="j-label">supplier Name</label>
+                                                <div class="j-input">
+                                                    <label class="j-icon-right" for="supplierName">
+                                                        <i class="icofont icofont-bar-code"></i>
+                                                    </label>
+                                                    <input type="text" id="supplierName" name="supplierName"
+                                                           th:field="*{supplierName}">
+                                                    <p th:errors="*{supplierName}" class="text-danger"
+                                                       th:if="${#fields.hasErrors('supplierName')}"></p>
+                                                </div>
+                                            </div>
+                                            <div class="j-span6 j-unit">
+                                                <label class="j-label">PO NO</label>
+                                                <div class="j-input">
+                                                    <label class="j-icon-right" for="PONO">
+                                                        <i class="icofont icofont-bar-code"></i>
+                                                    </label>
+                                                    <input type="text" id="PONO" name="PONO"
+                                                           th:field="*{PONO}">
+                                                    <p th:errors="*{PONO}" class="text-danger"
+                                                       th:if="${#fields.hasErrors('PONO')}"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="j-row">
+                                            <div class="j-span6 j-unit">
+                                                <label class="j-label">barcode</label>
+                                                <div class="j-input">
+                                                    <label class="j-icon-right" for="barcode">
+                                                        <i class="icofont icofont-bar-code"></i>
+                                                    </label>
+                                                    <input type="text" id="barcode" name="barcode" th:field="*{barcode}">
+                                                    <p th:errors="*{barcode}" class="text-danger"
+                                                       th:if="${#fields.hasErrors('barcode')}"></p>
+                                                    <!-- <span class="j-tooltip j-tooltip-right-top">Add Value Added Tax Here</span> -->
+                                                </div>
+                                            </div>
+
+                                            <div class="j-span6 j-unit">
+                                                <label class="j-label">pipcode</label>
+                                                <div class="j-input">
+                                                    <label class="j-icon-right" for="pipcode">
+                                                        <i class="icofont icofont-bar-code"></i>
+                                                    </label>
+                                                    <input type="text" id="pipcode" name="pipcode"
+                                                           th:field="*{pipcode}">
+                                                    <p th:errors="*{pipcode}" class="text-danger"
+                                                       th:if="${#fields.hasErrors('pipcode')}"></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -199,29 +198,56 @@
                                         <div class="j-row">
 
                                             <div class="j-span6 j-unit">
-                                                <label class="j-label">Price</label>
+                                                <label class="j-label">quantity</label>
                                                 <div class="j-input">
-                                                    <label class="j-icon-right" for="price">
+                                                    <label class="j-icon-right" for="quantity">
                                                         <i class="icofont icofont-cur-pound"></i>
                                                     </label>
-                                                    <input type="text" id="price" name="price" th:field="*{price}">
-                                                    <p th:errors="*{price}" class="text-danger"
-                                                       th:if="${#fields.hasErrors('price')}"></p>
+                                                    <input type="text" id="quantity" name="quantity" th:field="*{quantity}">
+                                                    <p th:errors="*{quantity}" class="text-danger"
+                                                       th:if="${#fields.hasErrors('quantity')}"></p>
                                                 </div>
                                             </div>
                                             <div class="j-span6 j-unit">
-                                                <label class="j-label">Expiry</label>
+                                                <label class="j-label">unitPrice</label>
                                                 <div class="j-input">
-                                                    <label class="j-icon-right" for="batchExpiry">
+                                                    <label class="j-icon-right" for="unitPrice">
                                                         <i class="icofont icofont-ui-calendar"></i>
                                                     </label>
-                                                    <input type="text" id="batchExpiry" th:field="*{batchExpiry}"
-                                                           name="batchExpiry" placeholder="MM/YY">
-                                                    <p th:errors="*{batchExpiry}" class="text-danger"
-                                                       th:if="${#fields.hasErrors('batchExpiry')}"></p>
+                                                    <input type="text" id="unitPrice" th:field="*{unitPrice}"
+                                                           name="unitPrice" >
+                                                    <p th:errors="*{unitPrice}" class="text-danger"
+                                                       th:if="${#fields.hasErrors('unitPrice')}"></p>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="j-row">
+
+                                            <div class="j-span6 j-unit">
+                                                <label class="j-label">type</label>
+                                                <div class="j-input">
+                                                    <label class="j-icon-right" for="type">
+                                                        <i class="icofont icofont-cur-pound"></i>
+                                                    </label>
+                                                    <input type="text" id="quantity" name="type" th:field="*{type}">
+                                                    <p th:errors="*{type}" class="text-danger"
+                                                       th:if="${#fields.hasErrors('type')}"></p>
+                                                </div>
+                                            </div>
+                                            <div class="j-span6 j-unit">
+                                                <label class="j-label">username</label>
+                                                <div class="j-input">
+                                                    <label class="j-icon-right" for="username">
+                                                        <i class="icofont icofont-ui-calendar"></i>
+                                                    </label>
+                                                    <input type="text" id="username" th:field="*{username}"
+                                                           name="unitPrice">
+                                                    <p th:errors="*{username}" class="text-danger"
+                                                       th:if="${#fields.hasErrors('username')}"></p>
+                                                </div>
+                                            </div>
+                                        </div> 
                                         <!-- end date -->
                                         <!--  <div class="j-divider j-gap-bottom-25"></div>-->
                                         <!-- start message -->

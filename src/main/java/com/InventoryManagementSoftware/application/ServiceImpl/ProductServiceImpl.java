@@ -2,6 +2,7 @@ package com.InventoryManagementSoftware.application.ServiceImpl;
 
 import com.InventoryManagementSoftware.application.Exception.EntityNotFoundException;
 import com.InventoryManagementSoftware.application.payload.request.ProductRequest;
+import com.InventoryManagementSoftware.application.payload.request.PurchaseRequest;
 import com.InventoryManagementSoftware.domain.Entities.TblProduct;
 import com.InventoryManagementSoftware.domain.Services.ProductService;
 import com.InventoryManagementSoftware.domain.repository.ProductRepository;
@@ -42,22 +43,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public TblProduct updateProduct(ProductRequest request) {
+    public TblProduct updateProduct(ProductRequest productRequest) {
 
-        Optional<TblProduct> existingProducts = productRepository.findById(request.getProductId());
+        Optional<TblProduct> existingProducts = productRepository.findById(productRequest.getProductId());
         if (!existingProducts.isPresent()){
             throw new EntityNotFoundException("products is not Found");
         }
         TblProduct updateProducts = existingProducts.get();
-        updateProducts.setManufacturer(request.getManufacturer());
-        updateProducts.setProductName(request.getProductName());
-        updateProducts.setNavCode(request.getNavCode());
-        updateProducts.setBarcode(request.getBarcode());
-        updateProducts.setBatchExpiry(request.getBatchExpiry());
-        updateProducts.setQuantity(request.getQuantity());
-        updateProducts.setPrice(request.getPrice());
-        updateProducts.setPipCode(request.getPipCode());
-        updateProducts.setVat(request.getVat());
+        updateProducts.setManufacturer(productRequest.getManufacturer());
+        updateProducts.setProductName(productRequest.getProductName());
+        updateProducts.setNavCode(productRequest.getNavCode());
+        updateProducts.setBarcode(productRequest.getBarcode());
+        updateProducts.setBatchExpiry(productRequest.getBatchExpiry());
+        updateProducts.setQuantity(productRequest.getQuantity());
+        updateProducts.setPrice(productRequest.getPrice());
+        updateProducts.setPipCode(productRequest.getPipCode());
+        updateProducts.setVat(productRequest.getVat());
         return productRepository.save(updateProducts);
     }
 

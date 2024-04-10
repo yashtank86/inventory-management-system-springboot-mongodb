@@ -43,8 +43,8 @@
 </head>
 
 <body>
-    <div th:replace="~{user/inc/preloader :: pre-loader}"></div>
-    <div th:replace="~{user/inc/header :: main-page}">
+    <div th:replace="~{admin/inc/preloader :: pre-loader}"></div>
+    <div th:replace="~{admin/inc/header :: main-page}">
 
         <div class="page-wrapper" th:fragment="main-content">
             <!-- Page-header start -->
@@ -53,8 +53,8 @@
                     <div class="col-lg-8">
                         <div class="page-header-title">
                             <div class="d-inline">
-                                <h4>Product List</h4>
-                                <span>You are currently in Product
+                                <h4>Purchase List</h4>
+                                <span>You are currently in / Inventory / PurchaseList
                                     Page</span>
                             </div>
                         </div>
@@ -63,11 +63,11 @@
                         <div class="page-header-breadcrumb">
                             <ul class="breadcrumb-title">
                                 <li class="breadcrumb-item">
-                                    <a th:href="@{/user/home}">
+                                    <a th:href="@{/admin/home}">
                                         <i class="feather icon-home"></i>
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">Product List</a></li>
+                                <li class="breadcrumb-item"><a href="#">Purchase List</a></li>
                             </ul>
                         </div>
                     </div>
@@ -82,15 +82,9 @@
                 <div class="card">
                     <div class="card-header">
                         <!-- <h5>Checkbox Selection</h5> -->
-                        <a th:href="@{/user/addProduct}">
+                        <a th:href="@{/admin/addPurchase}">
                             <button type="button" class="btn btn-outline-info waves-effect waves-light">
                                 <i class="feather icon-file-plus"></i>
-                            </button>
-                        </a>
-
-                        <a href>
-                            <button type="button" class="btn btn-outline-success waves-effect waves-light add">
-                                <i class="ti-share"></i>
                             </button>
                         </a>
 
@@ -118,65 +112,54 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Manufacturer</th>
+                                        <th>DocType</th>
                                         <th>Name</th>
-                                        <th>NAV Code</th>
+                                        <th>NAVCode</th>
+                                        <th>SupplierName</th>
+                                        <th>PO NO</th>
                                         <th>Barcode</th>
-                                        <th>Expiry</th>
-                                        <th>Qty</th>
-                                        <th>Price</th>
                                         <th>PIP-Code</th>
-                                        <th>VAT(%)</th>
-                                        <th>Last Sold</th>
-                                        <th>Action</th>
+                                        <th>Qty</th>
+                                        <th>UnitPrice</th>
+                                        <th>Type</th>
+                                        <th>Username</th>
+                                        <th>Date</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                 <tbody>
 
                                     <tr th:each="pList, index : ${getProducts}">
                                         <td th:text="${index.index + 1}">No</td>
-                                        <td th:text="${pList.manufacturer}">manufacturer</td>
-                                        <td th:text="${pList.productName}">productName</td>
-                                        <td th:text="${pList.navCode}">navCode</td>
-                                        <td th:text="${pList.barcode}">barcode</td>
-                                        <td th:text="${pList.batchExpiry}">batchExpiry</td>
-                                        <td th:text="${pList.quantity}">quantity</td>
-                                        <td th:text="${pList.price}">price</td>
-                                        <td th:text="${pList.pipCode}">pipCode</td>
-                                        <td th:text="${pList.vat}">vat</td>
-                                        <td th:text="${pList.lastSoldDate}"></td>
-                                        <td>
-                                            <a th:href="@{/user/editProduct/{productId}(productId=${pList.productId}) }">
-                                                <button class="btn btn-outline-secondary btn-sm">
-                                                    <i class="feather icon-edit"></i>
-                                                </button>
-                                            </a>
-                                       
-                                            <a href="#">
-                                                <button class="btn btn-outline-secondary btn-sm">
-                                                    <i class="ti-na"></i>
-                                                </button>
-                                            </a>
-                                        </td>
+                                        <td th:text="${pList.manufacturer}">DocType</td>
+                                        <td th:text="${pList.productName}">Name</td>
+                                        <td th:text="${pList.navCode}">NAVCode</td>
+                                        <td th:text="${pList.barcode}">SupplierName</td>
+                                        <td th:text="${pList.batchExpiry}">PO NO</td>
+                                        <td th:text="${pList.quantity}">Barcode</td>
+                                        <td th:text="${pList.price}">PIP-Code</td>
+                                        <td th:text="${pList.pipCode}">qty</td>
+                                        <td th:text="${pList.vat}">unit price</td>
+                                        <td th:text="${pList.vat}">date</td>                                        
                                     </tr>
 
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
-                                        <th>Manufacturer</th>
+                                        <th>Doc Type</th>
                                         <th>Name</th>
-                                        <th>NAV Code</th>
+                                        <th>NAVCode</th>
+                                        <th>Supplier Name</th>
+                                        <th>PO NO</th>
                                         <th>Barcode</th>
-                                        <th>Expiry</th>
-                                        <th>Qty</th>
-                                        <th>Price</th>
                                         <th>PIP-Code</th>
-                                        <th>VAT(%)</th>
-                                        <th>Last Sold</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
+                                        <th>Qty</th>
+                                        <th>UnitPrice</th>
+                                        <th>Type</th>
+                                        <th>Username</th>
+                                        <th>Date</th>
+                                    </tr> 
+                                </tfoot> 
                             </table>
                         </div>
                     </div>
@@ -207,43 +190,12 @@
 
     <script src="..\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>
 
-     <script>
-        $(document).ready(function() {
-            $('#productTable').DataTable();
-        });
+    <script>
 
-        function editProduct(button) {
-            var row = button.closest('tr');
-            var productId = row.find('td:eq(0)').text();
-            var Manufacturer = row.find('td:eq(1)').text();
-            var productName = row.find('td:eq(2)').text();
-            var navCode = row.find('td:eq(3)').text();
-            var barcode = row.find('td:eq(4)').text();
-            var batchExpiry = row.find('td:eq(5)').text();
-            var quantity = row.find('td:eq(6)').text();
-            var price = row.find('td:eq(7)').text();
-            var pipCode = row.find('td:eq(8)').text();
-            var vat  = row.find('td:eq(9)').text();
-
-        
-            // Redirect to editForm.html with parameters
-            //window.location.href = '/editForm?productId=' + productId + '&productName=' + productName + '&productPrice=' + productPrice;
+        function updateProduct() {
+            // Redirect to editForm.html with the product ID as a query parameter
+            window.location.href = "/user/editProductForm?id=" + productId;
         }
-
-    // $('#fix-header tbody').on( 'click', '#editProduct', function () {
-    //     var data = table.row( $(this).parents('tr') ).data();
-    //     $("#type").val(data['productType']);
-    // 	$("#productName").val(data['productName']);
-    // 	$("#navCode").val(data['navCode']);
-    // 	$("#barcode").val(data['barcode']);
-    // 	$("#batchExpiry").val(data['batchExpiry']);
-    // 	$("#quantity").val(data['quantity']);
-    // 	$("#price").val(data['price']);
-    // 	$("#pip").val(data['pipCode']);
-    // 	$("#productId").val(data['productId']);
-    // 	$("#vat").val(data['vat']);
-    	
-    // } 
 
     </script>
 

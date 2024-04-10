@@ -54,7 +54,7 @@
                     <div class="page-header-title">
                         <div class="d-inline">
                             <h4>Add Product</h4>
-                            <span>You  are currently in / Home / Product List Page.</span>
+                            <span>You  are currently in Product List Page.</span>
                         </div>
                     </div>
                 </div>
@@ -62,10 +62,10 @@
                     <div class="page-header-breadcrumb">
                         <ul class="breadcrumb-title">
                             <li class="breadcrumb-item">
-                                <a th:href="@{/user/home}"> <i class="feather icon-home"></i>
+                                <a th:href="@{/admin/home}"> <i class="feather icon-home"></i>
                                 </a>
                             </li>
-                            <li class="breadcrumb-item"><a th:href="@{/user/productList}">Product List</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{/admin/productList}">Product List</a></li>
                             <li class="breadcrumb-item"><a href="#">Add Product</a></li>
                         </ul>
                     </div>
@@ -87,7 +87,7 @@
                         </div>
                         <div class="card-block">
                             <div class="j-wrapper j-wrapper-640">
-                                <form th:action="@{/user/addProduct}"
+                                <form th:action="@{/admin/addProduct}"
                                       th:object="${addProducts}"
                                       method="post"
                                       class="j-pro"

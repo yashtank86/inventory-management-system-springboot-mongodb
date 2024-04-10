@@ -1,18 +1,19 @@
 package com.InventoryManagementSoftware.application.controllers;
 
-import com.InventoryManagementSoftware.application.Exception.EntityNotFoundException;
 import com.InventoryManagementSoftware.application.ServiceImpl.ProductServiceImpl;
 import com.InventoryManagementSoftware.application.payload.request.ProductRequest;
-import com.InventoryManagementSoftware.application.payload.response.MessageResponse;
+import com.InventoryManagementSoftware.application.payload.request.PurchaseRequest;
 import com.InventoryManagementSoftware.domain.Entities.TblProduct;
-import com.InventoryManagementSoftware.domain.Entities.TblUser;
-import com.InventoryManagementSoftware.domain.Services.ProductService;
+import com.InventoryManagementSoftware.domain.repository.ProductRepository;
+
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
 import java.util.Date;
@@ -24,6 +25,8 @@ public class ProductController {
 
     @Autowired
     ProductServiceImpl productService;
+
+    Logger logger = org.apache.logging.log4j.LogManager.getLogger(ProductController.class);
 
     @GetMapping("/user/productList")
     public String getProducts(Model model) {
@@ -41,52 +44,50 @@ public class ProductController {
         return "user/addProductForm";
     }
 
-    @PostMapping("/user/addProduct/save")
+    @PostMapping("/user/addProduct")
     public String addProduct(@ModelAttribute("addProducts") ProductRequest productRequest, Model model,
             BindingResult result) throws IOException {
 
         try {
-
             TblProduct product = new TblProduct(productRequest);
-            if (product.getProductList().isEmpty()) {
-                throw new EntityNotFoundException("There is no products found!!");
-            }
             product.setCreateDate(new Date());
+            logger.info("saving product : " + product);
             productService.saveProduct(product);
-
+            logger.info("Product added successfully");
         } catch (Exception e) {
             if (result.hasErrors()) {
                 model.addAttribute("addProducts", productRequest);
                 return "redirect:/user/addProductForm";
             }
-            throw new IOException(e);
         }
         return "redirect:/user/productList";
     }
 
-    @GetMapping("/user/editProduct")
-    public String editProduct(String productId, Model model) {
-        Optional<TblProduct> existingProducts = productService.getProductById(productId);
-        model.addAttribute("editProducts", existingProducts);
-        model.addAttribute("editProducts", new ProductRequest());
+    @GetMapping(path = { "/user/editProduct", "/user/editProduct/{productId}" })
+    public String editProduct(String productId, Model model, ProductRequest request) {
+        TblProduct product = productService.getProductById(request.getProductId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + productId));
+
+        model.addAttribute("productget", product);
         return "user/editProductForm";
     }
 
-    @PostMapping("/user/editProduct/save")
-    public String editProduct(@ModelAttribute("editProducts") ProductRequest productRequest, Model model,
-            BindingResult result) throws IOException {
+    @PostMapping(path = { "/user/editProduct", "/user/editProduct/{productId}" })
+    public String editProduct(@ModelAttribute("productget") ProductRequest productRequest, Model model,
+            BindingResult result, Optional<TblProduct> productId) throws IOException {
 
         try {
 
-            Optional<TblProduct> existingProducts = productService.getProductById(productRequest.getProductId());
-            if (!existingProducts.isPresent()) {
-                throw new EntityNotFoundException("There is no products found!!");
+            if (productId.isPresent()) {
+                Optional<TblProduct> edtUser = productService.getProductById(productRequest.getProductId());
+                model.addAttribute("productget", edtUser);
+                model.addAttribute("productget", new ProductRequest());
+                productService.updateProduct(productRequest);
             }
-            productService.updateProduct(productRequest);
 
         } catch (Exception e) {
             if (result.hasErrors()) {
-                model.addAttribute("editProducts", productRequest);
+                model.addAttribute("productget", productRequest);
                 return "redirect:/user/editProductForm";
             }
             throw new IOException(e);
