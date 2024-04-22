@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
+
   @Autowired
   private JwtUtils jwtUtils;
 
@@ -42,7 +43,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
             userDetails.getAuthorities());
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
       }
     } catch (Exception e) {
@@ -52,8 +52,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     try {
       filterChain.doFilter(request, response);
     } catch (IOException | ServletException e) {
-      // Handle the exception
-      e.printStackTrace(); // Or log the exception
+      logger.error("filterchain error hereeeeeeeeeee", e);
     }
   }
 
@@ -62,17 +61,22 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     return jwt;
   }
 
-  /*private Authentication getAuthentication(String token) {
-    String username = jwtUtils.getUserNameFromJwtToken(token);
-    if (username != null) {
-      UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-      // Get authorities with "ROLE_" prefix
-      Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities().stream()
-              .map(authority -> new SimpleGrantedAuthority("ROLE_" + authority.getAuthority()))
-              .collect(Collectors.toList());
-      return new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
-    }
-    return null;
-  }*/
+  /*
+   * private Authentication getAuthentication(String token) {
+   * String username = jwtUtils.getUserNameFromJwtToken(token);
+   * if (username != null) {
+   * UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+   * // Get authorities with "ROLE_" prefix
+   * Collection<? extends GrantedAuthority> authorities =
+   * userDetails.getAuthorities().stream()
+   * .map(authority -> new SimpleGrantedAuthority("ROLE_" +
+   * authority.getAuthority()))
+   * .collect(Collectors.toList());
+   * return new UsernamePasswordAuthenticationToken(userDetails, null,
+   * authorities);
+   * }
+   * return null;
+   * }
+   */
 
 }

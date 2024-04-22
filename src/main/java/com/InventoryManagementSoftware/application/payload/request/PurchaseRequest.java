@@ -28,30 +28,25 @@ public class PurchaseRequest {
     private String username;
     private Date createdDate;
 
-    
+    public PurchaseRequest() {
 
-     public PurchaseRequest() {
+    }
 
-     }
-
-     public PurchaseRequest(TblPurchase tblPurchase) {
-         this.number = tblPurchase.getNumber();
-         this.purchaseId = tblPurchase.getPurchaseId();
-         this.documentType = tblPurchase.getDocumentType();
-         this.productName = tblPurchase.getProductName();
-         this.navCode = tblPurchase.getNavCode();
-         this.supplierName = tblPurchase.getSupplierName();
-         this.PONO = tblPurchase.getPONO();
-         this.barcode = tblPurchase.getBarcode();
-         this.pipcode = tblPurchase.getPipcode();
-         this.quantity = tblPurchase.getQuantity();
-         this.unitPrice = tblPurchase.getUnitPrice();
-         this.type = tblPurchase.getType();
-         this.username = tblPurchase.getUsername();
-         this.createdDate = tblPurchase.getCreatedDate();
-     }
-    
-     
-     
+    public PurchaseRequest(TblPurchase tblPurchase) {
+        this.number = tblPurchase.getNumber();
+        this.purchaseId = tblPurchase.getPurchaseId();
+        this.documentType = tblPurchase.getDocumentType();
+        this.productName = tblPurchase.getProductName();
+        this.navCode = tblPurchase.getNavCode();
+        this.supplierName = tblPurchase.getSupplierName();
+        this.PONO = tblPurchase.getPONO();
+        this.barcode = tblPurchase.getBarcode();
+        this.pipcode = tblPurchase.getPipcode();
+        this.quantity = tblPurchase.getQuantity();
+        this.unitPrice = tblPurchase.getUnitPrice();
+        this.type = tblPurchase.getType();
+        this.username = tblPurchase.getUsername();
+        this.createdDate = tblPurchase.getCreatedDate();
+    }
 
 }

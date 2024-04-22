@@ -41,10 +41,11 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 
     private static final String[] ENDPOINTS = {
             "/register/**",
-            "/login/**",
+            "/login",
+            "/IMS",
 
-            // "/user/**",
-            // "/admin/**",
+            "/user/**",
+            "/admin/**",
 
             "/bower_components/**",
             "/css/**",
@@ -96,29 +97,29 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 
                 // .exceptionHandling(exception ->
                 // exception.authenticationEntryPoint(unauthorizedHandler))
-
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 
                 ).authorizeHttpRequests(auth -> auth.requestMatchers(ENDPOINTS).permitAll()
-                        // .requestMatchers("/api/products/**").permitAll()
-                        .requestMatchers("/user/**").hasRole("USER")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        // .requestMatchers("/user/**").hasRole("USER")
+                        // .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage(LOGIN_URL)
                         // .loginProcessingUrl(LOGIN_URL)
-                        // .failureUrl(LOGIN_FAIL_URL)
+                        .failureUrl(LOGIN_FAIL_URL)
                         .defaultSuccessUrl(DEFAULT_SUCCESS_URL))
                 .logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_URL))
+                                .invalidateHttpSession(true)
+                                .clearAuthentication(true)
+                                .deleteCookies("JSESSIONID")
                                 .permitAll()
 
                 );
 
         http.authenticationProvider(authenticationProvider());
-
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

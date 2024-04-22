@@ -1,11 +1,13 @@
 package com.InventoryManagementSoftware.application.controllers;
 
 import java.io.IOException;
+import java.net.http.HttpHeaders;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import com.InventoryManagementSoftware.application.payload.request.LoginRequest;
 import com.InventoryManagementSoftware.application.payload.request.SignupRequest;
+import com.InventoryManagementSoftware.application.payload.response.UserInfoResponse;
 import com.InventoryManagementSoftware.application.security.services.UserDetailsServiceImpl;
 import com.InventoryManagementSoftware.domain.Entities.ERole;
 import com.InventoryManagementSoftware.domain.Entities.TblProduct;
@@ -16,6 +18,8 @@ import com.InventoryManagementSoftware.domain.repository.RoleRepository;
 import com.InventoryManagementSoftware.domain.repository.UserRepository;
 import com.InventoryManagementSoftware.application.security.jwt.JwtUtils;
 import com.InventoryManagementSoftware.application.security.services.UserDetailsImpl;
+
+import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,13 +28,18 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +49,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class AuthController {
+
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -58,11 +68,13 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/user/home")
     public String userHome() {
         return "user/home";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/home")
     public String adminHome() {
         return "admin/home";
@@ -83,38 +95,44 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String authenticateUser(@Valid @ModelAttribute("loginUser") LoginRequest loginRequest,
-            HttpSession httpSession,
+    public String authenticateUser(@Valid @ModelAttribute("loginUser") LoginRequest loginRequest, HttpSession session,
             HttpServletRequest request, HttpServletResponse response, Model model)
             throws IOException, ServletException {
-        Authentication authentication;
-        try {
-            authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+        if (loginRequest.getUsername() != null || loginRequest.getPassword() != null) {
+
+            String token = jwtUtils.generateTokenFromUsername(loginRequest.getUsername());
+            Cookie cookie = new Cookie("token", token);
+            // ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
             List<String> roles = userDetails.getAuthorities().stream()
                     .map(item -> item.getAuthority())
                     .collect(Collectors.toList());
 
-            String token = jwtUtils.generateTokenFromUsername(loginRequest.getUsername());
-            // Set JWT token as a cookie
-            Cookie jwtCookie = new Cookie("jwtToken", token);
-            jwtCookie.setPath("/IMS");
-            response.addCookie(jwtCookie);
+            for (GrantedAuthority getAuth : userDetails.getAuthorities()) {
 
-            defaultPage(request);
-            // determineRedirectUrl(userDetails);
+                if (getAuth.getAuthority().equals("ROLE_USER")) {
+                    response.addCookie(cookie);
+                    return "redirect:" + "/user/home";
+                } else if (getAuth.getAuthority().equals("ROLE_ADMIN")) {
+                    response.addCookie(cookie);
+                    return "redirect:" + "/admin/home";
+                }
 
-        } catch (AuthenticationException e) {
-            // Handle authentication failure, e.g., invalid credentials
-            model.addAttribute("error", "Invalid username or password");
-            return "redirect:/login"; // Return login page with error message
+            }
+            // ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+            // .body(new UserInfoResponse(userDetails.getId(),
+            // userDetails.getUsername(),
+            // userDetails.getEmail(),
+            // roles));
         }
-
         return "";
-
     }
 
     // private String determineRedirectUrl(UserDetailsImpl userDetails) {
@@ -130,29 +148,6 @@ public class AuthController {
     // }
     // return "redirect:/";
     // }
-
-    public String defaultPage(HttpServletRequest request) {
-
-        String token = jwtUtils.getJwtFromCookies(request);
-        if (token != null && jwtUtils.validateJwtToken(token)) {
-
-            UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication()
-                    .getPrincipal();
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            SecurityContextHolder.getContext().setAuthentication(auth);
-
-            for (GrantedAuthority authority : userDetails.getAuthorities()) {
-                if (authority.getAuthority().equals("ROLE_USER")) {
-                    return "/user/home";
-                } else if (authority.getAuthority().equals("ROLE_ADMIN")) {
-                    return "/admin/home";
-                }
-            }
-        }
-        
-       
-        return "redirect:/";
-    }
 
     @PostMapping("/register/save")
     public String registerUser(@Valid @ModelAttribute("registerUser") SignupRequest signUpRequest, Model model,
@@ -217,8 +212,6 @@ public class AuthController {
     @GetMapping("/logout")
     public String logout() {
 
-        // String username =
-        // SecurityContextHolder.getContext().getAuthentication().getName();
         SecurityContextHolder.clearContext();
         return "redirect:/login";
     }

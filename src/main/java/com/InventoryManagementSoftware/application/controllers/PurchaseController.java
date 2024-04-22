@@ -18,12 +18,17 @@ import com.InventoryManagementSoftware.domain.Entities.TblPurchase;
 @Controller
 public class PurchaseController {
 
-    @Autowired
+    // @Autowired
     PurchaseServiceImpl purchaseService;
+
+    @GetMapping("/admin/purchaseList")
+    public String purchaseList() {
+        return "admin/purchaseList";
+    }
 
     @GetMapping("/admin/addPurchase")
     public String addProduct(Model model) {
-        model.addAttribute("objPurchases", new PurchaseRequest());
+        // model.addAttribute("objPurchases", new PurchaseRequest());
         return "admin/addPurchaseForm";
     }
 
@@ -46,7 +51,7 @@ public class PurchaseController {
                 throw new IOException(e);
 
         }
-        return "redirect:/admin/productList";
+        return "redirect:/admin/purchaseList";
     }
 
 }

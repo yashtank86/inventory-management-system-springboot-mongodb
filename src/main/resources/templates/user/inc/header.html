@@ -70,20 +70,18 @@
                                             class="img-radius"
                                             alt="User-Profile-Image"
                                     />
-                                    <span>yt004</span>
+                                    <span>[[${username}]]</span>
                                     <i class="feather icon-chevron-down"></i>
                                 </div>
                                 <ul
                                         class="show-notification profile-notification dropdown-menu"
                                         data-dropdown-in="fadeIn"
-                                        data-dropdown-out="fadeOut"
-                                >
+                                        data-dropdown-out="fadeOut">
                                     <li>
                                         <a href="#">
                                             <i class="feather icon-user"></i> Profile
                                         </a>
                                     </li>
-
                                     <li>
                                         <a th:href="@{/logout}">
                                             <i class="feather icon-log-out"></i> Logout

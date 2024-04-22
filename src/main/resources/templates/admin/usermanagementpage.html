@@ -53,9 +53,8 @@
                     <div class="col-lg-8">
                         <div class="page-header-title">
                             <div class="d-inline">
-                                <h4>Purchase List</h4>
-                                <span>You are currently in / Inventory / PurchaseList
-                                    Page</span>
+                                <h4>Users List</h4>
+                                <span>You are currently in User Management Page</span>
                             </div>
                         </div>
                     </div>
@@ -67,7 +66,7 @@
                                         <i class="feather icon-home"></i>
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">Purchase List</a></li>
+                                <li class="breadcrumb-item"><a href="#">Users List</a></li>
                             </ul>
                         </div>
                     </div>
@@ -82,21 +81,13 @@
                 <div class="card">
                     <div class="card-header">
                         <!-- <h5>Checkbox Selection</h5> -->
-                        <a th:href="@{/admin/addPurchase}">
+                        <a href="#">
                             <button type="button" class="btn btn-outline-info waves-effect waves-light">
                                 <i class="feather icon-file-plus"></i>
                             </button>
                         </a>
 
-                        <!-- <a th:href="@{/user/editProduct}">
-                        <button
-                                type="button"
-                                class="btn btn-outline-secondary waves-effect waves-dark add">
-                            <i class="feather icon-edit"></i>
-                        </button>
-                    </a> -->
-
-
+                        
                         <!--<div class="card-header-right">
                         <ul class="list-unstyled card-option">
                             <li><i class="feather icon-maximize full-card"></i></li>
@@ -112,56 +103,37 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>DocType</th>
                                         <th>Name</th>
-                                        <th>NAVCode</th>
-                                        <th>SupplierName</th>
-                                        <th>PO NO</th>
-                                        <th>Barcode</th>
-                                        <th>PIP-Code</th>
-                                        <th>Qty</th>
-                                        <th>UnitPrice</th>
-                                        <th>Type</th>
-                                        <th>Username</th>
-                                        <th>Date</th>
+                                        <th>UserName</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
-                                 <tbody>
+                                <tbody>
 
-                                    <tr th:each="pList, index : ${objPurchases}">
-                                        <td th:text="${index.index + 1}">No</td>
-                                        <td th:text="${pList.documentType}">DocType</td>
-                                        <td th:text="${pList.productName}">Name</td>
-                                        <td th:text="${pList.navCode}">NAVCode</td>
-                                        <td th:text="${pList.supplierName}">SupplierName</td>
-                                        <td th:text="${pList.PONO}">PO NO</td>
-                                        <td th:text="${pList.barcode}">Barcode</td>
-                                        <td th:text="${pList.pipcode}">PIP-Code</td>
-                                        <td th:text="${pList.quantity}">qty</td>
-                                        <td th:text="${pList.unitPrice}">unit price</td>
-                                        <td th:text="${pList.type}">type</td>                                        
-                                        <td th:text="${pList.username}">username</td>                                        
-                                        <td th:text="${pList.createdDate}">date</td>                                        
+                                    <tr th:each="users, index : ${getuser}">
+                                        <td th:text="${users.index + 1}">No</td>
+                                        <td th:text="${users.username}">Name</td>
+                                        <td th:text="${users.email}">UserName</td>
+                                        <td>
+                                            <a href="#">
+                                                <button class="btn btn-outline-success btn-sm">Active</button>
+                                            </a>
+
+                                        </td>
+                                        
                                     </tr>
 
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
-                                        <th>Doc Type</th>
                                         <th>Name</th>
-                                        <th>NAVCode</th>
-                                        <th>Supplier Name</th>
-                                        <th>PO NO</th>
-                                        <th>Barcode</th>
-                                        <th>PIP-Code</th>
-                                        <th>Qty</th>
-                                        <th>UnitPrice</th>
-                                        <th>Type</th>
-                                        <th>Username</th>
-                                        <th>Date</th>
-                                    </tr> 
-                                </tfoot> 
+                                        <th>UserName</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -192,15 +164,7 @@
 
     <script src="..\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>
 
-    <script>
-
-        function updateProduct() {
-            // Redirect to editForm.html with the product ID as a query parameter
-            window.location.href = "/user/editProductForm?id=" + productId;
-        }
-
-    </script>
-
+    
 </body>
 
 </html>

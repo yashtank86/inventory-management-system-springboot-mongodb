@@ -20,25 +20,25 @@
     <meta name="author" content="#">
     <!-- Favicon icon -->
 
-    <link rel="icon" href="..\images\favicon.ico" type="image/x-icon">
+    <link rel="icon" href="..\..\images\favicon.ico" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
-    <link rel="stylesheet" type="text/css" href="..\bower_components\bootstrap\css\bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="..\..\bower_components\bootstrap\css\bootstrap.min.css">
     <!-- themify-icons line icon -->
-    <link rel="stylesheet" type="text/css" href="..\icon\themify-icons\themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="..\..\icon\themify-icons\themify-icons.css">
     <!-- ico font -->
-    <link rel="stylesheet" type="text/css" href="..\icon\icofont\css\icofont.css">
+    <link rel="stylesheet" type="text/css" href="..\..\icon\icofont\css\icofont.css">
     <!-- feather Awesome -->
-    <link rel="stylesheet" type="text/css" href="..\icon\feather\css\feather.css">
+    <link rel="stylesheet" type="text/css" href="..\..\icon\feather\css\feather.css">
     <!-- jpro forms css -->
-    <link rel="stylesheet" type="text/css" href="..\pages\j-pro\css\demo.css">
-    <link rel="stylesheet" type="text/css" href="..\pages\j-pro\css\font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="..\pages\j-pro\css\j-pro-modern.css">
+    <link rel="stylesheet" type="text/css" href="..\..\pages\j-pro\css\demo.css">
+    <link rel="stylesheet" type="text/css" href="..\..\pages\j-pro\css\font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="..\..\pages\j-pro\css\j-pro-modern.css">
     <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href="..\css\style.css">
+    <link rel="stylesheet" type="text/css" href="..\..\css\style.css">
 
-    <link rel="stylesheet" type="text/css" href="..\css\jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" type="text/css" href="..\..\css\jquery.mCustomScrollbar.css">
 
 </head>
 
@@ -92,7 +92,7 @@
                                 <div class="j-wrapper j-wrapper-640">
                                     <form 
                                         th:object="${productget}"
-                                        th:action="@{/user/editProduct/{productId}(productId=${productget.productId})}"
+                                        th:action="@{/user/editProduct}"
                                         method="post" class="j-pro" id="j-pro">
 
                                         <div class="j-content">
@@ -102,6 +102,9 @@
                                                     <label class="j-icon-right" for="manufacturer">
                                                         <i class="icofont icofont-briefcase-alt-1"></i>
                                                     </label>
+
+                                                    <input type="hidden"  th:field="*{productId}" name="productId" readonly>
+
                                                     <input type="text" id="manufacturer" name="manufacturer"
                                                         th:value="*{manufacturer}" th:field="*{manufacturer}">                                                    
                                                     <p th:errors="*{manufacturer}" class="text-danger"
@@ -134,7 +137,8 @@
                                                             <i class="icofont icofont-box"></i>
                                                         </label>
                                                         <input type="text" id="quantity" name="quantity"
-                                                            th:value="*{quantity}" th:field="*{quantity}">
+                                                            th:value="*{quantity}" th:field="*{quantity}" 
+                                                            readonly="you can not change this" class="text-danger">
                                                         <p th:errors="*{quantity}" class="text-danger"
                                                             th:if="${#fields.hasErrors('quantity')}"></p>
                                                     </div>
@@ -241,7 +245,6 @@
                                                 <textarea spellcheck="false" name="message"></textarea>
                                             </div>
                                         </div>-->
-                                        <input type="hidden"  th:field="*{productId}" name="productId" readonly>
                                             <!-- end message -->
                                             <!-- start response from server -->
                                             <div class="j-response"></div>
@@ -267,11 +270,34 @@
     <!-- <div th:replace="~{user/inc/header :: headerFragment}"></div> -->
 
     <!-- j-pro js -->
-    <script type="text/javascript" src="..\pages\j-pro\js\jquery.ui.min.js"></script>
-    <script type="text/javascript" src="..\pages\j-pro\js\jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="..\pages\j-pro\js\jquery.j-pro.js"></script>
+    <script type="text/javascript" src="..\..\pages\j-pro\js\jquery.ui.min.js"></script>
+    <script type="text/javascript" src="..\..\pages\j-pro\js\jquery.maskedinput.min.js"></script>
+    <script type="text/javascript" src="..\..\pages\j-pro\js\jquery.j-pro.js"></script>
     <!-- Custom js -->
-    <script type="text/javascript" src="..\pages\j-pro\js\custom\booking.js"></script>
+    <script type="text/javascript" src="..\..\pages\j-pro\js\custom\booking.js"></script>
+    <!-- Required Jquery -->
+<script type="text/javascript" src="..\..\bower_components\jquery\js\jquery.min.js"></script>
+<script type="text/javascript" src="..\..\bower_components\jquery-ui\js\jquery-ui.min.js"></script>
+<script type="text/javascript" src="..\..\bower_components\popper.js\js\popper.min.js"></script>
+<script type="text/javascript" src="..\..\bower_components\bootstrap\js\bootstrap.min.js"></script>
+<!-- jquery slimscroll js -->
+<script type="text/javascript" src="..\..\bower_components\jquery-slimscroll\js\jquery.slimscroll.js"></script>
+<!-- modernizr js -->
+<script type="text/javascript" src="..\..\bower_components\modernizr\js\modernizr.js"></script>
+<script type="text/javascript" src="..\..\bower_components\modernizr\js\css-scrollbars.js"></script>
+
+<!-- i18next.min.js -->
+<script type="text/javascript" src="..\..\bower_components\i18next\js\i18next.min.js"></script>
+<script type="text/javascript" src="..\..\bower_components\i18next-xhr-backend\js\i18nextXHRBackend.min.js"></script>
+<script type="text/javascript" src="..\..\bower_components\i18next-browser-languagedetector\js\i18nextBrowserLanguageDetector.min.js"></script>
+<script type="text/javascript" src="..\..\bower_components\jquery-i18next\js\jquery-i18next.min.js"></script>
+<!-- Custom js -->
+<script src="..\..\js\pcoded.min.js"></script>
+<script src="..\..\js\vartical-layout.min.js"></script>
+<script src="..\..\js\jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="..\..\js\script.js"></script>
+<script src="..\..\pages\data-table\extensions\select\js\select-custom.js"></script>
+
 
 </body>
 

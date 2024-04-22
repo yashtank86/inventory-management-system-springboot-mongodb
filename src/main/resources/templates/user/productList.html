@@ -88,7 +88,7 @@
                             </button>
                         </a>
 
-                        <a href>
+                        <a th:href="@{/export-to-excel}">
                             <button type="button" class="btn btn-outline-success waves-effect waves-light add">
                                 <i class="ti-share"></i>
                             </button>
@@ -146,7 +146,7 @@
                                         <td th:text="${pList.vat}">vat</td>
                                         <td th:text="${pList.lastSoldDate}"></td>
                                         <td>
-                                            <a th:href="@{/user/editProduct/{productId}(productId=${pList.productId}) }">
+                                            <a th:href="@{/user/editProduct/{productId}(productId=${pList.productId}) }"> 
                                                 <button class="btn btn-outline-secondary btn-sm">
                                                     <i class="feather icon-edit"></i>
                                                 </button>

@@ -9,8 +9,14 @@ public class UserInfoResponse {
   private String email;
   private List<String> roles;
 
-  public UserInfoResponse(){
+  public UserInfoResponse() {
 
+  }
+
+  public UserInfoResponse(String username, String email, List<String> roles) {
+    this.username = username;
+    this.email = email;
+    this.roles = roles;
   }
 
   public UserInfoResponse(String userId, String username, String email, List<String> roles) {
