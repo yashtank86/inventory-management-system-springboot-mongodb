@@ -1,5 +1,3 @@
-Inventory Management Software
-
 A comprehensive inventory management system built using Spring Boot, MongoDB, and secured with JWT.
 
 This application helps businesses manage their inventory by providing an intuitive interface for tracking products, stock levels, and orders. With the power of Spring Boot, MongoDB, and JWT, this system is designed to be scalable, secure, and easy to maintain.
