@@ -1,4 +1,4 @@
-Inventory Management System
+Inventory Management Software
 
 A comprehensive inventory management system built using Spring Boot and MongoDB.
 
@@ -22,8 +22,7 @@ Setup and Installation:
 
     Clone the repository:
 
-git clone https://github.com/your-username/inventory-management-system.git
-cd inventory-management-system
+git clone https://github.com/yashtank86/inventory-management-software.git
 
 Install Dependencies: This project uses Maven for dependency management. Run the following command to install the dependencies:
 
@@ -38,7 +37,7 @@ Run the Application: To start the application, run the following command:
 
     mvn spring-boot:run
 
-    The application will run on http://localhost:8080.
+    The application will run on http://localhost:8086
 
 Endpoints:
 
@@ -56,7 +55,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 
 
-##screenshots
+##screenshots:
 
 | Register View| LogIn View |
 |:-:|:-:|
