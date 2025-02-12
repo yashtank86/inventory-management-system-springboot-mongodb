@@ -26,9 +26,10 @@ Setup and Installation:
     Clone the repository:
     git clone https://github.com/yashtank86/inventory-management-software.git
 
-Install Dependencies: This project uses Maven for dependency management. Run the following command to install the dependencies:
+Install Dependencies:
 
-mvn clean install
+    This project uses Maven for dependency management. Run the following command to install the dependencies:
+    mvn clean install
 
 Configure MongoDB:
 
