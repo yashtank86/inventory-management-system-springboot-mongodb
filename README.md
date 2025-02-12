@@ -1,4 +1,4 @@
-##screenshots: 
+##screenshots
 
 | Dashboard 
 |:-:|
