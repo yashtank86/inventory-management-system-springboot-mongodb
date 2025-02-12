@@ -24,8 +24,7 @@ Technologies Used:
 Setup and Installation:
 
     Clone the repository:
-
-git clone https://github.com/yashtank86/inventory-management-software.git
+    git clone https://github.com/yashtank86/inventory-management-software.git
 
 Install Dependencies: This project uses Maven for dependency management. Run the following command to install the dependencies:
 
@@ -40,9 +39,8 @@ Configure JWT Secret:
 
     Add your JWT secret key in the application.properties or application.yml file for secure token generation.
     Example:
-
-jwt.secret=your-secret-key
-jwt.expiration=3600    
+    jwt.secret=your-secret-key
+    jwt.expiration=3600    
 
 Run the Application: To start the application, run the following command:
 
