@@ -1,13 +1,14 @@
 Inventory Management Software
 
-A comprehensive inventory management system built using Spring Boot and MongoDB.
+A comprehensive inventory management system built using Spring Boot, MongoDB, and secured with JWT.
 
-This application helps businesses manage their inventory by providing an intuitive interface for tracking products, stock levels, and orders. With the power of Spring Boot and MongoDB, this system is designed to be scalable, efficient, and easy to maintain.
+This application helps businesses manage their inventory by providing an intuitive interface for tracking products, stock levels, and orders. With the power of Spring Boot, MongoDB, and JWT, this system is designed to be scalable, secure, and easy to maintain.
+
 Features:
 
     Product Management: Add, update, and delete products from the inventory.
     Stock Tracking: Keep track of stock levels and monitor when products are running low.
-    Order Management: Create, view, and manage orders.
+    Secure Login: User authentication and authorization are managed with JWT for secure login and session management.
     MongoDB Integration: Persistent data storage using MongoDB for fast and scalable performance.
     RESTful API: A fully functional REST API to manage inventory data, easily integrable with other systems.
 
@@ -15,8 +16,10 @@ Technologies Used:
 
     Spring Boot: A framework for building robust and scalable backend applications.
     MongoDB: NoSQL database used to store inventory data.
+    JWT (JSON Web Token): For secure login and authentication.
     Spring Data MongoDB: Used for easy integration of MongoDB with Spring Boot.
     Spring Security (optional): For securing endpoints and managing user roles.
+    Maven: For dependency management and build automation.
 
 Setup and Installation:
 
@@ -32,6 +35,14 @@ Configure MongoDB:
 
     Make sure you have MongoDB installed and running locally or use a MongoDB Atlas cloud instance.
     Update the application.properties file to include your MongoDB connection details.
+    
+Configure JWT Secret:
+
+    Add your JWT secret key in the application.properties or application.yml file for secure token generation.
+    Example:
+
+jwt.secret=your-secret-key
+jwt.expiration=3600    
 
 Run the Application: To start the application, run the following command:
 
@@ -48,7 +59,7 @@ Endpoints:
 
 Contributing:
 
-Feel free to open issues or submit pull requests if you'd like to contribute to the development of this inventory management system.
+Feel free to open issues or submit pull requests if you'd like to contribute to the development of this inventory management software.
 License:
 
 This project is licensed under the MIT License - see the LICENSE file for details.
