@@ -49,10 +49,10 @@ Run the Application: To start the application, run the following command:
 
 Endpoints:
 
-    GET /api/products: Get all products in the inventory.
-    POST /api/products: Add a new product to the inventory.
-    PUT /api/products/{id}: Update an existing product's details.
-    DELETE /api/products/{id}: Delete a product from the inventory.
+    GET /user/productList: Get all products in the inventory.
+    POST /user/addProduct: Add a new product to the inventory.
+    PUT /user/editProduct/{productId}: Update an existing product's details.
+    [pending] DELETE /api/products/{id}: Delete a product from the inventory.
 
 Contributing:
 
