@@ -1,27 +1,19 @@
-Inventory Management System (Java Spring Boot + MongoDB + JWT Security)
+# 🧩 Inventory Management System (Spring Boot + MongoDB + JWT)
 
-A powerful Java Spring Boot inventory management software designed to help businesses track and manage products, stock levels, and orders efficiently.
+A comprehensive **Inventory Management System** built using **Java Spring Boot**, **MongoDB**, and **JWT Authentication**.  
+This project helps businesses efficiently manage **products, stock levels, and orders** through a secure and scalable backend.
 
-This RESTful web application is built with Spring Boot (backend) and MongoDB (database), secured with JWT authentication, and offers a scalable, secure, and easy-to-maintain solution for modern inventory management.
+### 🚀 Tech Stack
+- **Backend:** Spring Boot (Java)
+- **Database:** MongoDB
+- **Security:** JWT Authentication
+- **API Type:** RESTful APIs
 
-Ideal for developers and businesses looking for an open-source inventory management system built with Java and Spring Boot.
-
-Features:
-
-    Product Management: Add, update, and delete products from the inventory.
-    Stock Tracking: Keep track of stock levels and monitor when products are running low.
-    Secure Login: User authentication and authorization are managed with JWT for secure login and session management.
-    MongoDB Integration: Persistent data storage using MongoDB for fast and scalable performance.
-    RESTful API: A fully functional REST API to manage inventory data, easily integrable with other systems.
-
-Technologies Used:
-
-    Spring Boot: A framework for building robust and scalable backend applications.
-    MongoDB: NoSQL database used to store inventory data.
-    JWT (JSON Web Token): For secure login and authentication.
-    Spring Data MongoDB: Used for easy integration of MongoDB with Spring Boot.
-    Spring Security (optional): For securing endpoints and managing user roles.
-    Maven: For dependency management and build automation.
+### 🔑 Features
+- Add, update, and delete products
+- Track stock quantity and orders
+- User authentication with JWT
+- Scalable and easily customizable architecture
 
 Setup and Installation:
 
